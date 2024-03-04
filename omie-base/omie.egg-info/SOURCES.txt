@@ -1,0 +1,10 @@
+README.md
+setup.py
+omie/__init__.py
+omie/omie.py
+omie.egg-info/PKG-INFO
+omie.egg-info/SOURCES.txt
+omie.egg-info/dependency_links.txt
+omie.egg-info/entry_points.txt
+omie.egg-info/requires.txt
+omie.egg-info/top_level.txt

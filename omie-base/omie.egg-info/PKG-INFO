@@ -1,0 +1,11 @@
+Metadata-Version: 1.1
+Name: omie
+Version: 0.0.0
+Summary: Libreria de interacción con OMIE
+Home-page: http://www.gisce.net
+Author: Adrià Orellana
+Author-email: aorellana@gisce.net
+License: General Public Licence 2
+Description: Long description
+Platform: UNKNOWN
+Provides: omie
