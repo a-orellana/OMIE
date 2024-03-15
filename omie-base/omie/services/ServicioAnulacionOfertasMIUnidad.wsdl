@@ -1,0 +1,39 @@
+<wsdl:definitions xmlns:typens="http://www.omel.es/Schemas" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.omel.es/Schemas">
+	
+	
+	<wsdl:types>
+		<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.omel.es/Schemas">
+			<xsd:include schemaLocation="../xsd/MensajeAnulacionOfertaSesionMI.xsd"/>
+			<xsd:include schemaLocation="../xsd/RespuestaAnulacionRetiradaOfertas.xsd"/>		
+		</xsd:schema>
+	</wsdl:types>
+	<message name="serviceRequest">
+		<part name="MensajeAnulacionOfertaSesionMI" type="typens:tMensajeAnulacionOfertaSesionMI"/>
+	</message>
+	<message name="serviceResponse">
+		<part name="AnulacionOfertasMIUnidad" type="typens:tRespuestaAnulacionRetiradaOfertas"/>	
+	</message>	
+	<portType name="ServicioAnulacionOfertasMIUnidadPort">
+		<operation name="ServicioAnulacionOfertasMIUnidad">
+			<input message="typens:serviceRequest"/>
+			<output message="typens:serviceResponse"/>
+		</operation>
+	</portType>
+	<binding name="ServicioAnulacionOfertasMIUnidadBinding" type="typens:ServicioAnulacionOfertasMIUnidadPort">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ServicioAnulacionOfertasMIUnidad">
+			<soap:operation soapAction="urn:ServicioAnulacionOfertasMIUnidad"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="ServicioAnulacionOfertasMIUnidadService">
+		<port name="ServicioAnulacionOfertasMIUnidadPort" binding="typens:ServicioAnulacionOfertasMIUnidadBinding">
+			<soap:address location="https://www.mercado.omie.es/jsiom/webServices/SIOMServiceRouter"/>
+		</port>
+	</service>
+</wsdl:definitions>

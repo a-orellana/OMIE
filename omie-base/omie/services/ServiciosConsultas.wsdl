@@ -1,0 +1,114 @@
+<wsdl:definitions xmlns:typens="http://www.omel.es/Schemas" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.omel.es/Schemas">
+	
+	
+	<wsdl:types>
+		<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.omel.es/Schemas">
+			<xsd:include schemaLocation="../xsd/tiposOMEL.xsd"/>
+			<xsd:include schemaLocation="../xsd/MensajeEjecucionConsulta.xsd"/>
+			<xsd:include schemaLocation="../xsd/RespuestaEjecucionConsultaEncolumnada.xsd"/>
+			<xsd:include schemaLocation="../xsd/RespuestaEjecucionConsultaAnexo.xsd"/>
+			<xsd:include schemaLocation="../xsd/RespuestaEjecucionConsultaPrograma.xsd"/>			
+			<xsd:include schemaLocation="../xsd/RespuestaConfiguracionConsulta.xsd"/>
+			<xsd:include schemaLocation="../xsd/RespuestaDirectorioConsultas.xsd"/>			
+		</xsd:schema>
+	</wsdl:types>
+	<message name="requestDirectorioConsultas" />
+	<message name="requestConfiguracionConsulta">
+		<part name="CodConsulta" type="typens:tCodConsulta"/>
+	</message>
+	<message name="requestConsulta">
+		<part name="MensajeEjecucionConsulta" type="typens:tMensajeEjecucionConsulta"/>
+	</message>
+	
+	<message name="responseDirectorioConsultas">
+		<part name="DirectorioConsultas" type="typens:RespuestaDirectorioConsultasResponse"/>
+	</message>
+	<message name="responseConfiguracionConsulta">
+		<part name="ConfiguracionConsulta" type="typens:RespuestaConfiguracionConsultaResponse"/>
+	</message>	
+	<message name="responseConsultaEncolumnada">
+		<part name="EjecucionConsultaEncolumnada" type="typens:RespuestaEjecucionConsultaEncolumnadaResponse"/>
+	</message>
+	<message name="responseConsultaFicheroAnexo">
+		<part name="EjecucionConsultaAnexo" type="typens:tRespuestaEjecucionConsultaAnexo"/>
+	</message>
+	<!--<message name="responseConsultaPrograma">
+		<part name="EjecucionConsultaPrograma" type="typens:RespuestaEjecucionConsultaProgramaResponse"/>
+	</message>-->
+	
+	<portType name="ConsultasPort">
+		<operation name="ServicioConsultaDirectorioConsultas">
+			<input message="typens:requestDirectorioConsultas"/>
+			<output message="typens:responseDirectorioConsultas"/>
+		</operation>
+		<operation name="ServicioConsultaConfiguracionConsulta">
+			<input message="typens:requestConfiguracionConsulta"/>
+			<output message="typens:responseConfiguracionConsulta"/>
+		</operation>
+		<operation name="ServicioEjecucionConsultaEncolumnada">
+			<input message="typens:requestConsulta"/>
+			<output message="typens:responseConsultaEncolumnada"/>
+		</operation>
+		<operation name="ServicioEjecucionConsultaAnexo">
+			<input message="typens:requestConsulta"/>
+			<output message="typens:responseConsultaFicheroAnexo"/>
+		</operation>
+		<operation name="ServicioEjecucionConsultaPrograma">
+			<input message="typens:requestConsulta"/>
+			<output message="xsd:anyType"/>
+		</operation>
+	</portType>
+	<binding name="ConsultasBinding" type="typens:ConsultasPort">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ServicioConsultaDirectorioConsultas">
+			<soap:operation soapAction="urn:ServicioConsultaDirectorioConsultas"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+		<operation name="ServicioConsultaConfiguracionConsulta">
+			<soap:operation soapAction="urn:ServicioConsultaConfiguracionConsulta"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+		<operation name="ServicioEjecucionConsultaEncolumnada">
+			<soap:operation soapAction="urn:ServicioEjecucionConsultaEncolumnada"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+		<operation name="ServicioEjecucionConsultaAnexo">
+			<soap:operation soapAction="urn:ServicioEjecucionConsultaAnexo"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+		<operation name="ServicioEjecucionConsultaPrograma">
+			<soap:operation soapAction="urn:ServicioEjecucionConsultaPrograma"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="ConsultasService">
+		<port name="ConsultasPort" binding="typens:ConsultasBinding">
+			<soap:address location="https://www.mercado.omie.es/jsiom/webServices/SIOMServiceRouter"/>
+		</port>
+	</service>
+</wsdl:definitions>

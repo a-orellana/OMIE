@@ -1,0 +1,43 @@
+<wsdl:definitions xmlns:typens="http://www.omel.es/Schemas" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.omel.es/Schemas">
+	
+	
+	<wsdl:types>
+		<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.omel.es/Schemas">
+			<xsd:include schemaLocation="../xsd/REMITUMMOtherSchema_V1.xsd"/>
+			<xsd:include schemaLocation="../xsd/RespuestaREMITUMMOtherSchema.xsd"/>						
+		</xsd:schema>
+	</wsdl:types>
+	
+	
+	
+	
+	<message name="serviceRequest">
+		<part name="REMITUrgentMarketMessages" type="typens:tREMITUrgentMarketMessages"/>
+	</message>
+	<message name="serviceResponse">
+		<part name="RespuestaREMITUrgentMarketMessages" type="typens:tRespuestaREMITUrgentMarketMessages"/>	
+	</message>	
+	<portType name="ServicioAltaMessagesUmmOtherPort">
+		<operation name="ServicioAltaMessagesUmmOther">
+			<input message="typens:serviceRequest"/>
+			<output message="typens:serviceResponse"/>
+		</operation>
+	</portType>
+	<binding name="ServicioAltaMessagesUmmOtherBinding" type="typens:ServicioAltaMessagesUmmOtherPort">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ServicioAltaMessagesUmmOther">
+			<soap:operation soapAction="urn:ServicioAltaMessagesUmmOther"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="ServicioAltaMessagesUmmOtherService">
+		<port name="ServicioAltaMessagesUmmOtherPort" binding="typens:ServicioAltaMessagesUmmOtherBinding">
+			<soap:address location="https://www.mercado.omie.es/jsiom/webServices/SIOMServiceRouter"/>
+		</port>
+	</service>
+</wsdl:definitions>

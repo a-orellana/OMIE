@@ -1,0 +1,36 @@
+<wsdl:definitions xmlns:typens="http://www.omel.es/Schemas" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.omel.es/Schemas">
+	
+	
+	<wsdl:types>
+		<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.omel.es/Schemas">
+			<xsd:include schemaLocation="../xsd/tiposOMEL.xsd"/>			
+		</xsd:schema>
+	</wsdl:types>
+	<message name="serviceRequest"/>
+	<message name="serviceResponse">
+		<part name="FechaHora" type="typens:tFechaHora"/>
+	</message>
+	<portType name="ServicioConsultaFechaHoraPort">
+		<operation name="ServicioConsultaFechaHora">
+			<input message="typens:serviceRequest"/>
+			<output message="typens:serviceResponse"/>
+		</operation>
+	</portType>
+	<binding name="ServicioConsultaFechaHoraBinding" type="typens:ServicioConsultaFechaHoraPort">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ServicioConsultaFechaHora">
+			<soap:operation soapAction="urn:ServicioConsultaFechaHora"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="ServicioConsultaFechaHoraService">
+		<port name="ServicioConsultaFechaHoraPort" binding="typens:ServicioConsultaFechaHoraBinding">
+			<soap:address location="https://www.mercado.omie.es/jsiom/webServices/SIOMServiceRouter"/>
+		</port>
+	</service>
+</wsdl:definitions>

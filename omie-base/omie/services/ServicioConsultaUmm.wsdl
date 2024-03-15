@@ -1,0 +1,43 @@
+<wsdl:definitions xmlns:typens="http://www.omel.es/Schemas" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.omel.es/Schemas">
+	<%@ page contentType="text/xml" import="java.net.*"%>
+	<%
+		URL url = new URL(request.getRequestURL().toString());
+		String addr = "https://" + url.getHost() + "/jsiom/webServices/SIOMServiceRouter";
+	%>
+	<wsdl:types>
+		<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.omel.es/Schemas">
+			<xsd:include schemaLocation="../xsd/MensajeConsultaUMM.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	
+	
+	<message name="serviceRequest">
+		<part name="mensajeConsultaUMM" type="typens:tMensajeConsultaUMM"/>
+	</message>
+	<message name="serviceResponse">
+		<part name="respuestaConsultaUmm" type="typens:tRespuestaConsultaUmm"/>	
+	</message>	
+	<portType name="ServicioConsultaUmmPort">
+		<operation name="ServicioConsultaUmm">
+			<input message="typens:serviceRequest"/>
+			<output message="xsd:anytype"/>
+		</operation>
+	</portType>
+	<binding name="ServicioConsultaUmmBinding" type="typens:ServicioConsultaUmmPort">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ServicioConsultaUmm">
+			<soap:operation soapAction="urn:ServicioConsultaUmm"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="ServicioConsultaUmm">
+		<port name="ServicioConsultaUmmPort" binding="typens:ServicioConsultaUmmBinding">
+			<soap:address location="<%= addr %>"/>
+		</port>
+	</service>
+</wsdl:definitions>
