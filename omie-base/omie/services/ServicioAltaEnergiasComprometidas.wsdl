@@ -1,0 +1,39 @@
+<wsdl:definitions xmlns:typens="http://www.omel.es/Schemas" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.omel.es/Schemas">
+	
+	
+	<wsdl:types>
+		<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.omel.es/Schemas">
+			<xsd:include schemaLocation="../xsd/MensajeEnergiasComprometidas.xsd"/>
+			<xsd:include schemaLocation="../xsd/RespuestaEnergiasComprometidas.xsd"/>						
+		</xsd:schema>
+	</wsdl:types>
+	<message name="serviceRequest">
+		<part name="MensajeEnergiasComprometidas" type="typens:tMensajeEnergiasComprometidas"/>
+	</message>
+	<message name="serviceResponse">
+		<part name="RespuestaEnergiasComprometidas" type="typens:tRespuestaEnergiasComprometidas"/>	
+	</message>	
+	<portType name="ServicioAltaEnergiasComprometidasPort">
+		<operation name="ServicioAltaEnergiasComprometidas">
+			<input message="typens:serviceRequest"/>
+			<output message="typens:serviceResponse"/>
+		</operation>
+	</portType>
+	<binding name="ServicioAltaEnergiasComprometidasBinding" type="typens:ServicioAltaEnergiasComprometidasPort">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ServicioAltaEnergiasComprometidas">
+			<soap:operation soapAction="urn:ServicioAltaEnergiasComprometidas"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="ServicioAltaEnergiasComprometidasService">
+		<port name="ServicioAltaEnergiasComprometidasPort" binding="typens:ServicioAltaEnergiasComprometidasBinding">
+			<soap:address location="https://www.mercado.omie.es/jsiom/webServices/SIOMServiceRouter"/>
+		</port>
+	</service>
+</wsdl:definitions>

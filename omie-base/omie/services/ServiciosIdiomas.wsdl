@@ -1,0 +1,56 @@
+<wsdl:definitions xmlns:typens="http://www.omel.es/Schemas" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.omel.es/Schemas">
+	
+	
+	<wsdl:types>
+		<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.omel.es/Schemas">
+			<xsd:include schemaLocation="../xsd/tiposOMEL.xsd"/>				
+			<xsd:include schemaLocation="../xsd/RespuestaListadoIdiomas.xsd"/>		
+		</xsd:schema>
+	</wsdl:types>
+	<message name="listaIdiomasRequest"/>
+	<message name="listaIdiomasResponse">
+		<part name="RespuestaListadoIdiomas" type="typens:tRespuestaListadoIdiomas"/>
+	</message>
+	<message name="seleccionIdiomaRequest">
+		<part name="SeleccionIdioma" type="typens:tIdioma"/>
+	</message>
+	<message name="seleccionIdiomaResponse">
+		<part name="SeleccionIdioma" type="typens:tSeleccionIdiomaResponse"/>
+	</message>
+	<portType name="ServiciosIdiomasPort">
+		<operation name="ServicioConsultaIdiomas">
+			<input message="typens:listaIdiomasRequest"/>
+			<output message="typens:listaIdiomasResponse"/>
+		</operation>
+		<operation name="ServicioSeleccionIdioma">
+			<input message="typens:seleccionIdiomaRequest"/>
+			<output message="typens:seleccionIdiomaResponse"/>
+		</operation>		
+	</portType>
+	<binding name="ServiciosIdiomasBinding" type="typens:ServiciosIdiomasPort">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ServicioConsultaIdiomas">
+			<soap:operation soapAction="urn:ServicioConsultaIdiomas"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+		<operation name="ServicioSeleccionIdioma">
+			<soap:operation soapAction="urn:ServicioSeleccionIdioma"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>		
+	</binding>
+	<service name="ServiciosIdiomasService">
+		<port name="ServiciosIdiomasPort" binding="typens:ServiciosIdiomasBinding">
+			<soap:address location="https://www.mercado.omie.es/jsiom/webServices/SIOMServiceRouter"/>
+		</port>
+	</service>
+</wsdl:definitions>

@@ -1,0 +1,39 @@
+<wsdl:definitions xmlns:typens="http://www.omel.es/Schemas" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.omel.es/Schemas">
+	
+	
+	<wsdl:types>
+		<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.omel.es/Schemas">
+			<xsd:include schemaLocation="../xsd/MensajeOfertasMD.xsd"/>
+			<xsd:include schemaLocation="../xsd/RespuestaOfertas.xsd"/>							
+		</xsd:schema>
+	</wsdl:types>
+	<message name="serviceRequest">
+		<part name="MensajeOfertasMD" type="typens:tMensajeOfertasMD"/>
+	</message>
+	<message name="serviceResponse">
+		<part name="RespuestaOfertas" type="typens:tRespuestaOfertas"/>	
+	</message>
+	<portType name="ServicioAltaOfertasMDPort">
+		<operation name="ServicioAltaOfertasMD">
+			<input message="typens:serviceRequest"/>
+			<output message="typens:serviceResponse"/>
+		</operation>
+	</portType>
+	<binding name="ServicioAltaOfertasMDBinding" type="typens:ServicioAltaOfertasMDPort">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ServicioAltaOfertasMD">
+			<soap:operation soapAction="urn:ServicioAltaOfertasMD"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="ServicioAltaOfertasMDService">
+		<port name="ServicioAltaOfertasMDPort" binding="typens:ServicioAltaOfertasMDBinding">
+			<soap:address location="https://www.mercado.omie.es/jsiom/webServices/SIOMServiceRouter"/>
+		</port>
+	</service>
+</wsdl:definitions>

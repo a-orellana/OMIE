@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<wsdl:definitions xmlns:apachesoap="http://xml.apache.org/xml-soap" 
+	xmlns:impl="https://www.mercado.omie.es/jsiom/webServices/ServiciosConsulta"
+	xmlns:intf="https://www.mercado.omie.es/jsiom/webServices/ServiciosConsulta" 
+	xmlns:tns1="http://impl.webservices.omel.es" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:ns="http://www.omel.es/Schemas" 
+	xmlns:ns1="http://www.asociacioncci.es/AEAT/2005/v1.2/eFactura_AEAT-CCI" 
+	xmlns:ns2="http://www.w3.org/2000/09/xmldsig#" 
+	xmlns:ns3="http://schemas.xmlsoap.org/soap/encoding/" 
+	targetNamespace="https://www.mercado.omie.es/jsiom/webServices/ServiciosConsulta">
+	
+	<wsdl:types>
+		<xs:schema targetNamespace="http://impl.webservices.omel.es">
+			<xs:import namespace="http://www.omel.es/Schemas" schemaLocation="../xsd/MensajeConsultaFactura.xsd"/>
+		</xs:schema>
+		<xs:schema targetNamespace="http://impl.webservices.omel.es">
+			<xs:import namespace="http://www.asociacioncci.es/AEAT/2005/v1.2/eFactura_AEAT-CCI" schemaLocation="../xsd/eFactura_AEAT-CCI.xsd"/>
+		</xs:schema>
+		<xs:schema targetNamespace="http://impl.webservices.omel.es">
+			<xs:import namespace="http://www.omel.es/Schemas" schemaLocation="../xsd/MensajeCertificadosExportacion.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="consultaFacturaRequest">
+		<wsdl:part name="consultaFacturaRequest" element="ns:MensajeConsultaFactura"/>
+	</wsdl:message>
+	<wsdl:message name="consultaFacturaResponse">
+		<wsdl:part name="consultaFacturaReturn" element="ns:ServicioConsultaFacturaResponse"/>
+	</wsdl:message>
+	<wsdl:message name="consultaCertificadoResponse">
+		<wsdl:part name="consultaCertificadoResponse" element="ns:MensajeCertificadosExportacion" />
+	</wsdl:message>
+	
+	<!-- ServiciosCertificado -->
+	<wsdl:portType name="ServiciosCertificado">
+		<wsdl:operation name="ServicioConsultaCertificado">
+			<wsdl:input name="consultaFacturaRequest" message="impl:consultaFacturaRequest"/>
+			<wsdl:output name="consultaCertificadoResponse" message="impl:consultaCertificadoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ServiciosConsultaCertificadoSoapBinding" type="impl:ServiciosCertificado">
+		<wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="ServicioConsultaCertificado">
+			<wsdlsoap:operation soapAction="ServicioConsultaCertificado"/>
+			<wsdl:input>
+				<wsdlsoap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="ServiciosCertificadoService">
+		<wsdl:port name="ServiciosCertificado" binding="impl:ServiciosConsultaCertificadoSoapBinding">
+			<wsdlsoap:address location="https://www.mercado.omie.es/jsiom/webServices/ServiciosCertificado"/>
+		</wsdl:port>
+	</wsdl:service>
+	
+	<!-- ServiciosConsulta -->
+	<wsdl:portType name="ServiciosConsulta">
+		<wsdl:operation name="ServicioConsultaFactura">
+			<wsdl:input name="consultaFacturaRequest" message="impl:consultaFacturaRequest"/>
+			<wsdl:output name="consultaFacturaResponse" message="impl:consultaFacturaResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ServiciosConsultaSoapBinding" type="impl:ServiciosConsulta">
+		<wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="ServicioConsultaFactura">
+			<wsdlsoap:operation soapAction="ServicioConsultaFactura"/>		
+			<wsdl:input>
+				<wsdlsoap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	<wsdl:service name="ServiciosConsultaService">
+		<wsdl:port name="ServiciosConsulta" binding="impl:ServiciosConsultaSoapBinding">
+			<wsdlsoap:address location="https://www.mercado.omie.es/jsiom/webServices/ServiciosConsulta"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

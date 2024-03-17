@@ -1,0 +1,53 @@
+<wsdl:definitions xmlns:typens="http://www.omel.es/Schemas" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.omel.es/Schemas">
+	
+	
+	<wsdl:types>
+		<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.omel.es/Schemas">
+			<xsd:include schemaLocation="../xsd/InfoMercado.xsd"/>
+			<xsd:include schemaLocation="../xsd/RespuestaMensajesCortosActivos.xsd"/>							
+		</xsd:schema>
+	</wsdl:types>
+  <message name="serviceRequest"/>	
+	<message name="serviceMensajesResponse">
+		<part name="RespuestaMensajesCortosActivos" type="typens:RespuestaMensajesCortosActivosResponse"/>
+	</message>
+	<message name="serviceResponse">
+		<part name="InfoMercados" type="typens:InfoMercadosResponse"/>
+	</message>
+	<portType name="ServicioConsultaMercadosPort">
+		<operation name="ServicioConsultaMensajesActivos">
+			<input message="typens:serviceRequest"/>
+			<output message="typens:serviceMensajesResponse"/>
+		</operation>
+		<operation name="ServicioConsultaMercados">
+			<input message="typens:serviceRequest"/>
+			<output message="typens:serviceResponse"/>
+		</operation>
+	</portType>
+	<binding name="ServicioConsultaMercadosBinding" type="typens:ServicioConsultaMercadosPort">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ServicioConsultaMensajesActivos">
+			<soap:operation soapAction="urn:ServicioConsultaMensajesActivos"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+		<operation name="ServicioConsultaMercados">
+			<soap:operation soapAction="urn:ServicioConsultaMercados"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>		
+	</binding>
+	<service name="ServicioConsultaMercadosService">
+		<port name="ServicioConsultaMercadosPort" binding="typens:ServicioConsultaMercadosBinding">
+			<soap:address location="https://www.mercado.omie.es/jsiom/webServices/SIOMServiceRouter"/>
+		</port>
+	</service>
+</wsdl:definitions>

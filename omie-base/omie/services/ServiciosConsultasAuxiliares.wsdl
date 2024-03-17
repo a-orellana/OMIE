@@ -1,0 +1,114 @@
+<wsdl:definitions xmlns:typens="http://www.omel.es/Schemas" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.omel.es/Schemas">
+	
+	
+	<wsdl:types>
+		<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.omel.es/Schemas">
+			<xsd:include schemaLocation="../xsd/tiposOMEL.xsd"/>
+			<xsd:include schemaLocation="../xsd/RespuestaTiposFicheros.xsd"/>
+			<xsd:include schemaLocation="../xsd/MensajeFicherosNuevos.xsd"/>			
+			<xsd:include schemaLocation="../xsd/RespuestaFicherosNuevos.xsd"/>
+			
+			<xsd:include schemaLocation="../xsd/MensajeFicherosNuevosLiq.xsd"/>			
+			<xsd:include schemaLocation="../xsd/RespuestaFicherosNuevosLiq.xsd"/>
+			
+			<xsd:include schemaLocation="../xsd/MensajeFicherosNuevosFact.xsd"/>			
+			<xsd:include schemaLocation="../xsd/RespuestaFicherosNuevosFact.xsd"/>			
+		</xsd:schema>
+	</wsdl:types>
+	<message name="requestConsultaTiposFicheros">
+		<part name="TipoDescarga" type="typens:tTipoDescarga"/>
+	</message>	
+	<message name="responseConsultaTiposFicheros">
+		<part name="TiposFicheros" type="typens:RespuestaTiposFicherosResponse"/>	
+	</message>
+	<message name="resquestConsultaNuevosFicheros">
+		<part name="MensajeFicherosNuevos" type="typens:tMensajeFicherosNuevos"/>
+	</message>
+	<message name="responseConsultaNuevosFicheros">
+		<part name="FicherosNuevos" type="typens:RespuestaFicherosNuevosResponse"/>	
+	</message>
+	
+	<message name="resquestConsultaNuevosFicherosLiq">
+		<part name="MensajeFicherosNuevosLiq" type="typens:tMensajeFicherosNuevosLiq"/>
+	</message>
+	<message name="responseConsultaNuevosFicherosLiq">
+		<part name="FicherosNuevosLiq" type="typens:RespuestaFicherosNuevosLiqResponse"/>	
+	</message>
+
+	<message name="resquestConsultaNuevosFicherosFact">
+		<part name="MensajeFicherosNuevosFact" type="typens:tMensajeFicherosNuevosFact"/>
+	</message>
+	<message name="responseConsultaNuevosFicherosFact">
+		<part name="FicherosNuevosFact" type="typens:RespuestaFicherosNuevosFactResponse"/>	
+	</message>
+
+	
+	<portType name="ConsultasAuxPort">
+		<operation name="ServicioConsultaTiposFicheros">
+			<input message="typens:requestConsultaTiposFicheros"/>
+			<output message="typens:responseConsultaTiposFicheros"/>
+		</operation>
+		<operation name="ServicioConsultaNuevosFicheros">
+			<input message="typens:resquestConsultaNuevosFicheros"/>
+			<output message="typens:responseConsultaNuevosFicheros"/>
+		</operation>
+		
+		<operation name="ServicioConsultaNuevosFicherosLiq">
+			<input message="typens:resquestConsultaNuevosFicherosLiq"/>
+			<output message="typens:responseConsultaNuevosFicherosLiq"/>
+		</operation>
+		<operation name="ServicioConsultaNuevosFicherosFact">
+			<input message="typens:resquestConsultaNuevosFicherosFact"/>
+			<output message="typens:responseConsultaNuevosFicherosFact"/>
+		</operation>
+		
+	</portType>
+	<binding name="ConsultasAuxBinding" type="typens:ConsultasAuxPort">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ServicioConsultaTiposFicheros">
+			<soap:operation soapAction="urn:ServicioConsultaTiposFicheros"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+		<operation name="ServicioConsultaNuevosFicheros">
+			<soap:operation soapAction="urn:ServicioConsultaNuevosFicheros"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+
+
+		<operation name="ServicioConsultaNuevosFicherosLiq">
+			<soap:operation soapAction="urn:ServicioConsultaNuevosFicherosLiq"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+		<operation name="ServicioConsultaNuevosFicherosFact">
+			<soap:operation soapAction="urn:ServicioConsultaNuevosFicherosFact"/>
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.omel.es/Schemas"/>
+			</output>
+		</operation>
+
+		
+	</binding>
+	<service name="ConsultasAuxService">
+		<port name="ConsultasAuxPort" binding="typens:ConsultasAuxBinding">
+			<soap:address location="https://www.mercado.omie.es/jsiom/webServices/SIOMServiceRouter"/>
+		</port>
+	</service>
+</wsdl:definitions>
